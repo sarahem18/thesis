@@ -26,7 +26,6 @@ merge 1:1 V101 using "/Users/sarahmcnitt/Desktop/working/nuc working.dta"
 save "/Users/sarahmcnitt/Desktop/thesis/2016 merge SN.dta", replace
 * N = 4000
 
-
 ** common content variables
 * demos
 gen age=2016-birthyr
@@ -54,17 +53,19 @@ recode CC16_300_3 2=0, gen(newsppr)
 recode CC16_300b 1=0 2/3=1, gen(newstv)
 
 
-* likes and dislikes about Trump and Clinton 
+* likes and dislikes about Trump and Clinton, the policies on which to match are chosen by what the candidate's party has deemed a priority
 * policy match with Trump or Clinton
-* Trump's position = 1, Clinton's = 0, should I continue w a clint_likes var 
-recode CC16_330a 1=0 2=1, gen(gun_stance)
+* Trump's position = 1, Clinton's = 0
+recode CC16_337_3 3=1 *=0, gen(tax_stance)
 recode CC16_331_7 1=1 2=0, gen(imm_stance)
-recode CC16_332a 1=0 2=1, gen(abort_stance)
-recode CC16_333a 1=0 2=1, gen(epa_stance)
 recode CC16_351I 1=1 2=0, gen(aca_stance)
-gen trump_likes = gun_stance + imm_stance + abort_stance + epa_stance + aca_stance
-gen clint_likes = 5-trump_likes
+gen trump_likes =  tax_stance + imm_stance + aca_stance
 
+* Clinton's postion = 1, Trump's = 0
+recode CC16_330a 1=1 2=0, gen(gun_stance)
+recode CC16_332a 1=1 2=0, gen(abort_stance)
+recode CC16_333a 1=1 2=0, gen(epa_stance)
+gen clint_likes = gun_stance + abort_stance + epa_stance
 
 * polarization
 gen polar_trump = abs(trump_likes-clint_likes)

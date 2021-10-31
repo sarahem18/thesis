@@ -19,7 +19,7 @@ tab trump_total Rvote, nof col
 tab clint_total trump_total, nof cell
 
 ** Table 2 
-tab Rvote disc_total if all_match==1
+tab Rvote disc_total if all_match==1, ce
 table Rvote named_match, c(mean dy_match_prop count dy_match_prop) format(%9.2f)
 
 ** Table 3 - negative binomial regression, moving forward without doing dislikes for either candidate
@@ -27,7 +27,8 @@ nbreg trump_likes educ age new_pid newsppr newstv clint_total trump_total pol_kn
 eststo
 nbreg clint_likes educ age new_pid newsppr newstv clint_total trump_total pol_know, difficult
 eststo
-esttab using table3.tex, b(2)
+esttab using table3.tex, b(2) nostar wide
+eststo clear
 
 ** Table 4
 nbreg trump_likes educ age new_pid newsppr newstv clint_total trump_total pol_know, difficult
@@ -56,9 +57,7 @@ reg ambiv_trump educ age extremity newsppr newstv clint_total trump_total c.clin
 eststo ta
 reg ambiv_clint educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
 eststo ca
-
 esttab using table5.tex, nostar wide compress
-
 eststo clear
 
 ** Table 6
@@ -80,7 +79,6 @@ table trump_total clint_total, c(mean ambiv_clint) format(%9.2f)
 
 ** Table 7
 * without the organizationl involvement variable, no appropriate proxy found
-eststo clear
 ologit interest extremity dem_dummy rep_dummy educ church newsppr newstv clint_total trump_total c.dem_dummy#c.clint_total c.dem_dummy#c.trump_total c.rep_dummy#c.clint_total c.rep_dummy#c.trump_total c.clint_total#c.trump_total
 eststo interest
 
@@ -98,5 +96,4 @@ table trump_total clint_total, c(mean pred_interest) format(%9.2f)
 logit voted extremity dem_dummy rep_dummy educ church newsppr newstv clint_total trump_total c.dem_dummy#c.clint_total c.dem_dummy#c.trump_total c.rep_dummy#c.clint_total c.rep_dummy#c.trump_total c.clint_total#c.trump_total
 predict pred_voted 
 table trump_total clint_total, c(mean pred_voted) format(%9.2f)
-
 

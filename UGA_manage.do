@@ -95,7 +95,7 @@ save "/Users/sarahmcnitt/Desktop/working/uga working.dta", replace
 * 1 = all match, 0 = all discussants do not match Rvote
 
 gen all_match_trump =.
-replace all_match_trump = 1 if trump_disc1 == 1 & trump_disc2 == 1 & trump_disc3 == 1 & Rvote==1 & disc_total==3
+replace all_match_trump = 1 if  == 1 & trump_disc2 == 1 & trump_disc3 == 1 & Rvote==1 & disc_total==3
 replace all_match_trump = 1 if trump_disc1 == 1 & trump_disc2 == 1 & Rvote==1 & disc_total==2
 replace all_match_trump = 1 if trump_disc1 == 1 & Rvote==1 & disc_total==1
 replace all_match_trump = 0 if all_match_trump == .
