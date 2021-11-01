@@ -14,9 +14,9 @@ do "/Users/sarahmcnitt/Desktop/thesis/merge management.do"
 use "/Users/sarahmcnitt/Desktop/thesis/2016 merge SN.dta"
 
 ** Table 1
-tab clint_total Rvote, nof col
-tab trump_total Rvote, nof col
-tab clint_total trump_total, nof cell
+tab clint_total Rvote if disc_total>0, nof col
+tab trump_total Rvote if disc_total>0, nof col
+tab clint_total trump_total if disc_total>0, nof cell
 
 ** Table 2 
 tab Rvote disc_total if all_match==1, ce
