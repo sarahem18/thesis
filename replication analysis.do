@@ -16,7 +16,7 @@ use "/Users/sarahmcnitt/Desktop/thesis/2016 merge SN.dta"
 ** Table 1
 tab clint_total Rvote if disc_total>0, nof col
 tab trump_total Rvote if disc_total>0, nof col
-tab clint_total trump_total if disc_total>0, nof cell
+tab clint_total trump_total if disc_total>0, nof ce
 
 ** Table 2 
 tab Rvote disc_total if all_match==1, ce
@@ -57,24 +57,29 @@ reg ambiv_trump educ age extremity newsppr newstv clint_total trump_total c.clin
 eststo ta
 reg ambiv_clint educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
 eststo ca
-esttab using table5.tex, nostar wide compress
+esttab using table5.tex, nostar compress
 eststo clear
 
 ** Table 6
 nbreg trump_likes educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
-table trump_total clint_total, c(mean trump_likes) format(%9.2f)
+predict pred_it
+table trump_total clint_total, c(mean pred_it) format(%9.2f)
 nbreg clint_likes educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
-table trump_total clint_total, c(mean clint_likes) format(%9.2f)
+predict pred_ic
 
 nbreg polar_trump educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
-table trump_total clint_total, c(mean polar_trump) format(%9.2f)
+predict pred_pt
+table trump_total clint_total, c(mean pred_pt) format(%9.2f)
 nbreg polar_clint educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
-table trump_total clint_total, c(mean polar_clint) format(%9.2f)
+predict pred_pc
+table trump_total clint_total, c(mean pred_pc) format(%9.2f)
 
 reg ambiv_trump educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
-table trump_total clint_total, c(mean ambiv_trump) format(%9.2f)
+predict pred_at
+table trump_total clint_total, c(mean pred_at) format(%9.2f)
 reg ambiv_clint educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
-table trump_total clint_total, c(mean ambiv_clint) format(%9.2f)
+predict pred_ac
+table trump_total clint_total, c(mean pred_ac) format(%9.2f)
 
 
 ** Table 7
