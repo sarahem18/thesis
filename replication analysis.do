@@ -57,7 +57,7 @@ reg ambiv_trump educ age extremity newsppr newstv clint_total trump_total c.clin
 eststo ta
 reg ambiv_clint educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
 eststo ca
-esttab using table5.tex, nostar compress
+esttab using table5.tex, b(2) nostar wide
 eststo clear
 
 ** Table 6
@@ -66,6 +66,7 @@ predict pred_it
 table trump_total clint_total, c(mean pred_it) format(%9.2f)
 nbreg clint_likes educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
 predict pred_ic
+table trump_total clint_total, c(mean pred_ic) format(%9.2f)
 
 nbreg polar_trump educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
 predict pred_pt
@@ -90,7 +91,7 @@ eststo interest
 logit voted extremity dem_dummy rep_dummy educ church newsppr newstv clint_total trump_total c.dem_dummy#c.clint_total c.dem_dummy#c.trump_total c.rep_dummy#c.clint_total c.rep_dummy#c.trump_total c.clint_total#c.trump_total
 eststo voted
 
-esttab using table7.tex, nostar wide b(2)
+esttab using table7.tex, b(2) nostar wide 
 
 
 ** Table 8
