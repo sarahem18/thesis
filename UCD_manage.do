@@ -63,7 +63,6 @@ replace disc_combo = 7 if disc1==0 & disc2==0 & disc3==1
 label define exist_label 1 "1.123" 2 "2.12" 3 "3.1" 4 "4.23" 5 "5.13" 6 "6.2" 7 "7.3"
 label values disc_combo exist_label
 
-
 gen new_disc1 =.
 replace new_disc1 = disc1 if disc_combo ==1 | disc_combo ==2 | disc_combo ==3 | disc_combo ==5
 replace new_disc1 = disc2 if disc_combo ==4 | disc_combo ==6
