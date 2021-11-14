@@ -5,13 +5,13 @@
 *** StataIC 16, macOS
 *** last updated: 10/27/21
 
-do "/Users/sarahmcnitt/Desktop/thesis/UCD_manage.do"
-do "/Users/sarahmcnitt/Desktop/thesis/UGA_manage.do"
-do "/Users/sarahmcnitt/Desktop/thesis/NUC_manage.do"
-do "/Users/sarahmcnitt/Desktop/thesis/FSU_manage.do"
-do "/Users/sarahmcnitt/Desktop/thesis/merge management.do"
+do "/Users/sarahmcnitt/Desktop/working/UCD_manage.do"
+do "/Users/sarahmcnitt/Desktop/working/UGA_manage.do"
+do "/Users/sarahmcnitt/Desktop/working/NUC_manage.do"
+do "/Users/sarahmcnitt/Desktop/working/FSU_manage.do"
+do "/Users/sarahmcnitt/Desktop/working/merge management.do"
 
-use "/Users/sarahmcnitt/Desktop/thesis/2016 merge SN.dta"
+use "/Users/sarahmcnitt/Desktop/working/2016 merge CCES.dta"
 
 ** Table 1
 tab clint_total Rvote if disc_total>0, nof col
@@ -20,7 +20,8 @@ tab clint_total trump_total if disc_total>0, nof ce
 
 ** Table 2 
 tab Rvote disc_total if all_match==1, ce
-table Rvote named_match, c(mean dy_match_prop count dy_match_prop) format(%9.2f)
+table Rvote named_match, c(mean dy_match n dy_match) format(%9.2f)
+** ^^ work on this later
 
 ** Table 3 - negative binomial regression, moving forward without doing dislikes for either candidate
 nbreg trump_likes educ age new_pid newsppr newstv clint_total trump_total pol_know, difficult
@@ -57,7 +58,7 @@ reg ambiv_trump educ age extremity newsppr newstv clint_total trump_total c.clin
 eststo ta
 reg ambiv_clint educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
 eststo ca
-esttab using table5.tex, b(2) nostar wide
+esttab using table5.tex, b(2) nostar
 eststo clear
 
 ** Table 6
