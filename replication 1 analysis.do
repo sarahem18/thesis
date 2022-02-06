@@ -11,7 +11,7 @@ do "/Users/sarahmcnitt/Desktop/working/NUC_manage.do"
 do "/Users/sarahmcnitt/Desktop/working/FSU_manage.do"
 do "/Users/sarahmcnitt/Desktop/working/merge management.do"
 
-use "/Users/sarahmcnitt/Desktop/working/2016 merge CCES.dta"
+use "/Users/sarahmcnitt/Desktop/thesis/2016 merge CCES.dta"
 
 ** Table 1
 tab clint_total Rvote if disc_total>0, nof col
