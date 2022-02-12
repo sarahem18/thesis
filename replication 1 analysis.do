@@ -20,8 +20,7 @@ tab clint_total trump_total if disc_total>0, nof ce
 
 ** Table 2 
 tab Rvote disc_total if all_match==1, ce
-table Rvote named_match, c(mean dy_match n dy_match) format(%9.2f)
-** ^^ work on this later
+table (Rvote) (named_match), statistic(count named_match) statistic(perc named_match)
 
 ** Table 3 - negative binomial regression, moving forward without doing dislikes for either candidate
 nbreg trump_likes educ age new_pid newsppr newstv clint_total trump_total pol_know, difficult
