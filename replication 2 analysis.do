@@ -20,20 +20,20 @@ reg participation age sex member ses efficacy infoexc_ind
 eststo activity
 esttab using nes2000.tex, b(3) wide replace
 
-reg voting age sex member ses efficacy infoexc_ind, beta
-reg participation age sex member ses efficacy infoexc_ind, beta
+*reg voting age sex member ses efficacy infoexc_ind, beta
+*reg participation age sex member ses efficacy infoexc_ind, beta
 
-reg voting age sex member
-reg participation age sex member
+*reg voting age sex member
+*reg participation age sex member
 
-reg voting age sex ses
-reg participation age sex ses
+*reg voting age sex ses
+*reg participation age sex ses
 
-reg voting age sex efficacy
-reg participation age sex efficacy
+*reg voting age sex efficacy
+*reg participation age sex efficacy
 
-reg voting age sex infoexc_ind
-reg participation age sex infoexc_ind
+*reg voting age sex infoexc_ind
+*reg participation age sex infoexc_ind
 
 
 

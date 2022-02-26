@@ -167,35 +167,35 @@ gen participation = (rally_cam + work_cam + donate_cam + contact_rep)/4
 ** Voting behavior
 * vote for president
 * 0 = no, 1 = yes
-recode V001248 1=1 5=0 *=., gen(avg_pres_vote)
+recode V001248 1=1 0 5=0 *=., gen(avg_pres_vote)
 sum avg_pres_vote
-recode V001248 1=1 5=0 *=.9966159, gen(pres_vote)
+recode V001248 1=1 0 5=0 *=.6519092, gen(pres_vote)
 
 * vote for Congressman
 * 0 = no, 1 = yes
-recode V001254 1=1 5 8=0 *=., gen(avg_cong1_vote)
+recode V001254 1=1 0 5 8=0 *=., gen(avg_cong1_vote)
 sum avg_cong1_vote
-recode V001254 1=1 5 8=0 *=.8424779, gen(cong1_vote)
+recode V001254 1=1 0 5 8=0 *=.5268401, gen(cong1_vote)
 
-recode V001258 1=1 5=0 *=., gen(avg_cong2_vote)
+recode V001258 1=1 0 5=0 *=., gen(avg_cong2_vote)
 sum avg_cong2_vote
-recode V001258 1=1 5=0 *=.6666667, gen(cong2_vote)
+recode V001258 1=1 0 5=0 *=.0177089, gen(cong2_vote)
 
 gen cong_vote = 0
-replace cong_vote = 1 if cong1_vote!=0 | cong2_vote!=0
+replace cong_vote = 1 if cong1_vote==1 | cong2_vote==1
 
 * vote for Senator
 * 0 = no, 1 = yes
-recode V001266 1=1 5 8=0 *=., gen(avg_sen1_vote)
+recode V001266 1=1 0 5 8=0 *=., gen(avg_sen1_vote)
 sum avg_sen1_vote
-recode V001266 1=1 5 8=0 *=.9032634, gen(sen1_vote)
+recode V001266 1=1 0 5 8=0 *=.4288877, gen(sen1_vote)
 
-recode V001270 1=1 5 8=0 *=., gen(avg_sen2_vote)
+recode V001270 1=1 0 5 8=0 *=., gen(avg_sen2_vote)
 sum avg_sen2_vote
-recode V001270 1=1 5 8=0 *=.8, gen(sen2_vote)
+recode V001270 1=1 0 5 8=0 *=.0177285, gen(sen2_vote)
 
 gen sen_vote = 0
-replace sen_vote = 1 if sen1_vote!=0 | sen2_vote!=0
+replace sen_vote = 1 if sen1_vote==1 | sen2_vote==1
 
 gen voting = pres_vote + cong_vote + sen_vote
 
