@@ -7,7 +7,7 @@ cd "/Users/sarahmcnitt/Desktop/thesis"
 * merge modules on V101, won't technically merge, basically appends without needing identical data structure
 use "/Users/sarahmcnitt/Desktop/thesis/ucd ready to merge.dta", clear
 * N = 1000
-merge 1:1 V101 using "/Users/sarahmcnitt/Desktop/ultra/uga ready to merge.dta"
+merge 1:1 V101 using "/Users/sarahmcnitt/Desktop/thesis/uga ready to merge.dta"
 save "/Users/sarahmcnitt/Desktop/thesis/ucd and uga merge.dta", replace
 * N = 2000
 
@@ -20,7 +20,7 @@ save "/Users/sarahmcnitt/Desktop/thesis/ucd uga fsu merge.dta", replace
 use "/Users/sarahmcnitt/Desktop/thesis/ucd uga fsu merge.dta", clear
 rename _merge _m2
 merge 1:1 V101 using "/Users/sarahmcnitt/Desktop/thesis/nuc ready to merge.dta"
-save "/Users/sarahmcnitt/Desktop/thesis/2016 merge redux.dta", replace
+save "/Users/sarahmcnitt/Desktop/thesis/2016 cces merge final.dta", replace
 * N = 4000
 
 ** newly created variables for analysis
