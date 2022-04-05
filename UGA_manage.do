@@ -2,9 +2,10 @@
 *** UGA 2016 CCES Module data management
 *** requires: CCES16_UGA_OUTPUT_Feb2017.dta
 *** output: data appropriate for merge and analysis a la Huckfeldt 2004
-*** last updated: 11/5/2021
+*** last updated: 4/4/2022
 
 use "/Users/sarahmcnitt/Desktop/replication 1/uga_2016/CCES16_UGA_OUTPUT_Feb2017.dta"
+cd "/Users/sarahmcnitt/Desktop/thesis"
 
 * dropping all but common content and name generator battery
 drop UGA*
@@ -72,4 +73,4 @@ replace vote_disc3 = 0 if vote_disc3 == .
 gen dsource = 2
 label define sources 1 "ucd" 2 "uga" 3 "fsu" 4 "nuc"
 label values dsource sources
-save "/Users/sarahmcnitt/Desktop/working/uga working.dta", replace
+save "uga ready for merge.dta", replace

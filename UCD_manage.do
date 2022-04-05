@@ -2,9 +2,10 @@
 *** UC Davis 2016 CCES Module data management
 *** requires: CCES16_UCD_OUTPUT_Feb2017.dta
 *** output: data appropriate for merge and analysis a la Huckfeldt 2004
-*** last updated: 11/5/21
+*** last updated: 4/4/2022
 
 use "/Users/sarahmcnitt/Desktop/replication 1/ucdavis_2016/CCES16_UCD_OUTPUT_Feb2017.dta"
+cd "/Users/sarahmcnitt/Desktop/thesis"
 
 * dropping all but common content, name generator battery
 drop UCD3* UCD410* UCD411* UCD412 UCD413 UCD414 UCD415
@@ -71,4 +72,4 @@ replace vote_disc3 = 0 if vote_disc3 == .
 gen dsource = 1
 label define sources 1 "ucd" 2 "uga" 3 "fsu" 4 "nuc"
 label values dsource sources
-save "/Users/sarahmcnitt/Desktop/working/ucd working.dta", replace
+save "ucd ready for merge.dta"
