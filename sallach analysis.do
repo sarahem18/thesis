@@ -1,46 +1,63 @@
 *** Sarah McNitt
-*** analysis for Sallach (1972) replication
-*** requires: NES 2000 Data File and nes2000_manage.do
-*** output: correlation and regression tables
-*** last updated: 1/26/22
+*** Sallach, Babchuk, and Booth (1972) replication
+*** requires: 2000 anes final.dta, nes2000_manage.do
+*** output: .tex, .png
+*** last updated: 4/11/22
 
-cd "/Users/sarahmcnitt/Desktop/replication 2"
+cd "/Users/sarahmcnitt/Desktop/thesis"
 do "nes2000_manage.do"
+use "2000 anes final.dta"
 
+** gauging correlations
 corr voting age sex member ses efficacy infoexc_ind
 corr participation age sex member ses efficacy infoexc_ind
 
 pcorr voting age sex member ses efficacy infoexc_ind
 pcorr participation age sex member ses efficacy infoexc_ind
 
-** 2000 only
+** regression analysis, 2000
 reg voting age sex member ses efficacy infoexc_ind, beta
 eststo vote
 reg participation age sex member ses efficacy infoexc_ind
 eststo activity
-esttab using nes2000.tex, b(3) wide replace
+esttab using nes2000.tex, b(3) wide
+
+reg voting age sex member ses efficacy infoexc_ind, beta
+margins, at(member=(0 1 2)) atmeans
+marginsplot, title("") xtitle("Number of memberships") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+graph save "Graph" "memberv.gph"
+
+margins, at(ses=(0(.25)1)) atmeans
+marginsplot, title("") xtitle("Socioeconomic Index") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+graph save "Graph" "sesv.gph"
+
+margins, at(efficacy=(0 (.25)1)) atmeans
+marginsplot, title("") xtitle("Perceived Political Powerlessness") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+graph save "Graph" "efficacyv.gph"
+
+margins, at(infoexc_ind=(0(.25)1)) atmeans
+marginsplot, title("") xtitle("Information Exchange Index") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+graph save "Graph" "infov.gph"
 
 reg participation age sex member ses efficacy infoexc_ind, beta
-margins, at(member=(0 1 2)) 
-margins, at(ses=(0(.25)1))
-margins, at(efficacy=(0 (.10)1)) 
-margins, at(infoexc_ind=(0(.125)1))
+margins, at(member=(0 1 2)) atmeans
+marginsplot, title("") xtitle("Number of memberships") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+graph save "Graph" "memberp.gph"
 
+margins, at(ses=(0(.25)1)) atmeans
+marginsplot, title("") xtitle("Socioeconomic Index") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+graph save "Graph" "sesp.gph"
 
-*reg voting age sex member ses efficacy infoexc_ind, beta
-*reg participation age sex member ses efficacy infoexc_ind, beta
+margins, at(efficacy=(0 (.25)1)) atmeans
+marginsplot, title("") xtitle("Perceived Political Powerlessness") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+graph save "Graph" "efficacyp.gph"
 
-*reg voting age sex member
-*reg participation age sex member
+margins, at(infoexc_ind=(0(.25)1)) atmeans
+marginsplot, title("") xtitle("Information Exchange Index") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+graph save "Graph" "infop.gph"
 
-*reg voting age sex ses
-*reg participation age sex ses
+grc1leg memberp.gph sesp.gph efficacyp.gph infop.gph, graphregion(fcolor(white) ilcolor(white) lcolor(white))  title("Predicted number of votes cast" "in the 2000 election") note("All other variables held at their means.")
+graph save "Graph" "/Users/sarahmcnitt/Desktop/working/vote margins.gph"
 
-*reg voting age sex efficacy
-*reg participation age sex efficacy
-
-*reg voting age sex infoexc_ind
-*reg participation age sex infoexc_ind
-
-
-
+grc1leg memberv.gph sesv.gph efficacyv.gph infov.gph, graphregion(fcolor(white) ilcolor(white) lcolor(white))  title(Predicted political participation) note("All other variables held at their means.")
+graph save "Graph" "/Users/sarahmcnitt/Desktop/working/participation margins.gph"

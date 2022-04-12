@@ -1,11 +1,11 @@
 *** Sarah McNitt
 *** UGA 2016 CCES Module data management
 *** requires: CCES16_UGA_OUTPUT_Feb2017.dta
-*** output: data appropriate for merge and analysis a la Huckfeldt 2004
+*** output: .dta
 *** last updated: 4/4/2022
 
-use "/Users/sarahmcnitt/Desktop/replication 1/uga_2016/CCES16_UGA_OUTPUT_Feb2017.dta"
 cd "/Users/sarahmcnitt/Desktop/thesis"
+use "CCES16_UGA_OUTPUT_Feb2017.dta"
 
 * dropping all but common content and name generator battery
 drop UGA*

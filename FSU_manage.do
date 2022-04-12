@@ -1,11 +1,11 @@
 *** Sarah McNitt
 *** FSU 2016 CCES Module data management
 *** requires: CCES16_FSU_OUTPUT_Feb2017.dta
-*** output: data appropriate for merge and analysis a la Huckfeldt 2004
+*** output: .dta
 *** last updated: 4/4/2022
 
-use "/Users/sarahmcnitt/Desktop/replication 1/fsu_2016/CCES16_FSU_OUTPUT_Feb2017.dta"
 cd "/Users/sarahmcnitt/Desktop/thesis"
+use "CCES16_FSU_OUTPUT_Feb2017.dta"
 
 * dropping common content and name generator battery
 drop FSU33* FSU34* FSU35* FSU4* timing*

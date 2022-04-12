@@ -1,9 +1,8 @@
 *** Sarah McNitt
 *** Huckfeldt, Mendez, and Osborn (2004) replication
-*** requires: data management files
-*** output: 8 tables
-*** StataIC 16, macOS
-*** last updated: 10/27/21
+*** requires: 2016 cces merge final.dta, UCD_manage.do, UGA_manage.do, NUC_manage.do, FSU_manage.do, cces merge management.do
+*** output: .tex, .png
+*** last updated: 4/6/21
 
 cd "/Users/sarahmcnitt/Desktop/thesis"
 
@@ -15,7 +14,6 @@ do "cces merge management.do"
 
 use "2016 cces merge final.dta", clear
 
-
 ** Table 1
 tab clint_total Rvote if disc_total>0, nof col
 tab trump_total Rvote if disc_total>0, nof col
@@ -25,84 +23,68 @@ tab clint_total trump_total if disc_total>0, nof ce
 tab Rvote disc_total if all_match==1, ce
 table (Rvote) (named_match), statistic(count named_match) statistic(perc named_match)
 
-** Table 3 - negative binomial regression, moving forward without doing dislikes for either candidate
-nbreg trump_likes educ age new_pid newsppr newstv clint_total trump_total pol_know, difficult
+** Tables 3 and 4 - omits dislikes for either candidate
+reg trump_likes educ age new_pid newsppr newstv clint_total trump_total pol_know
 eststo
-nbreg clint_likes educ age new_pid newsppr newstv clint_total trump_total pol_know, difficult
+predict count_trump
+table (trump_total) (clint_total), statistic(mean count_trump) nformat(%5.2f)
+
+reg clint_likes educ age new_pid newsppr newstv clint_total trump_total pol_know
 eststo
-esttab using table3.tex, b(2) nostar wide
+predict count_clint
+table (trump_total) (clint_total), statistic(mean count_clint) nformat(%5.2f)
+
+esttab using table3.tex, b(2) nostar wide r2
 eststo clear
 
-** Table 4
-nbreg trump_likes educ age new_pid newsppr newstv clint_total trump_total pol_know, difficult
-predict count_trump, n
-table trump_total clint_total, c(mean count_trump) format(%9.2f)
-nbreg clint_likes educ age new_pid newsppr newstv clint_total trump_total pol_know, difficult
-predict count_clint, n
-table trump_total clint_total, c(mean count_clint) format(%9.2f)
-
-
-** Table 5
-* intensity nbreg
-nbreg trump_likes educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
+** Tables 5 and 6
+* intensity
+reg trump_likes educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
 eststo ti
-nbreg clint_likes educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
-eststo ci
+predict pred_it
+table (trump_total) (clint_total), statistic(mean pred_it) nformat(%5.2f)
 
-* polarization, identical results bc no proxy for dislikes
-nbreg polar_trump educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
+reg clint_likes educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
+eststo ci
+predict pred_ic
+table (trump_total) (clint_total), statistic(mean pred_ic) nformat(%5.2f)
+
+* polarization - identical results due to no dislikes vars
+reg polar_trump educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
 eststo tp
-nbreg polar_clint educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
+predict pred_pt
+table (trump_total) (clint_total), statistic(mean pred_pt) nformat(%5.2f)
+
+reg polar_clint educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
 eststo cp
+predict pred_pc
 
 * ambivalence
 reg ambiv_trump educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
 eststo ta
+predict pred_at
+table (trump_total) (clint_total), statistic(mean pred_at) nformat(%5.2f)
+
 reg ambiv_clint educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
 eststo ca
-esttab using table5.tex, b(2) nostar
+predict pred_ac
+table (trump_total) (clint_total), statistic(mean pred_ac) nformat(%5.2f)
+
+esttab using table5.tex, b(2) nosta r2
 eststo clear
 
-** Table 6
-nbreg trump_likes educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
-predict pred_it
-table trump_total clint_total, c(mean pred_it) format(%9.2f)
-nbreg clint_likes educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
-predict pred_ic
-table trump_total clint_total, c(mean pred_ic) format(%9.2f)
-
-nbreg polar_trump educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
-predict pred_pt
-table trump_total clint_total, c(mean pred_pt) format(%9.2f)
-nbreg polar_clint educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know, difficult
-predict pred_pc
-table trump_total clint_total, c(mean pred_pc) format(%9.2f)
-
-reg ambiv_trump educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
-predict pred_at
-table trump_total clint_total, c(mean pred_at) format(%9.2f)
-reg ambiv_clint educ age extremity newsppr newstv clint_total trump_total c.clint_total#c.trump_total pol_know
-predict pred_ac
-table trump_total clint_total, c(mean pred_ac) format(%9.2f)
-
-
-** Table 7
-* without the organizationl involvement variable, no appropriate proxy found
+** Tables 7 and 8 - omits the organizationl involvement var, no appropriate proxy found
+* political interest
 ologit interest extremity dem_dummy rep_dummy educ church newsppr newstv clint_total trump_total c.dem_dummy#c.clint_total c.dem_dummy#c.trump_total c.rep_dummy#c.clint_total c.rep_dummy#c.trump_total c.clint_total#c.trump_total
 eststo interest
+predict pred_interest
+table (trump_total) (clint_total), statistic(mean pred_interest) nformat(%5.2f)
 
+* turnout
 logit voted extremity dem_dummy rep_dummy educ church newsppr newstv clint_total trump_total c.dem_dummy#c.clint_total c.dem_dummy#c.trump_total c.rep_dummy#c.clint_total c.rep_dummy#c.trump_total c.clint_total#c.trump_total
 eststo voted
+predict pred_voted 
+table (trump_total) (clint_total), statistic(mean pred_voted) nformat(%5.2f)
 
 esttab using table7.tex, b(2) nostar wide 
-
-
-** Table 8
-ologit interest extremity dem_dummy rep_dummy educ church newsppr newstv clint_total trump_total c.dem_dummy#c.clint_total c.dem_dummy#c.trump_total c.rep_dummy#c.clint_total c.rep_dummy#c.trump_total c.clint_total#c.trump_total
-predict pred_interest
-table trump_total clint_total, c(mean pred_interest) format(%9.2f)
-
-logit voted extremity dem_dummy rep_dummy educ church newsppr newstv clint_total trump_total c.dem_dummy#c.clint_total c.dem_dummy#c.trump_total c.rep_dummy#c.clint_total c.rep_dummy#c.trump_total c.clint_total#c.trump_total
-predict pred_voted 
-table trump_total clint_total, c(mean pred_voted) format(%9.2f)
-
+eststo clear

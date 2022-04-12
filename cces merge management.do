@@ -1,6 +1,7 @@
 *** Sarah McNitt
-*** output: merged CCES common content and module dataset
-*** last updated: 4/4/2022
+*** requires: UCD_manage.do, UGA_manage.do, NUC_manage.do, FSU_manage.do, cces merge management.do, ucd ready to merge.dta, uga ready to merge.dta, fsu ready to merge.dta, nuc ready to merge.dta
+*** output: .dta
+*** last updated: 4/11/2022
 
 cd "/Users/sarahmcnitt/Desktop/thesis"
 
@@ -89,7 +90,7 @@ gen age=2016-birthyr
 * scale from 0-6 with 0 = Strong Democrat
 recode pid7 1=0 2=1 3=2 4=3 5=4 6=5 7=6 *=., gen(new_pid)
 
-** controls (exclduing organizational involvement)
+** controls (excluding organizational involvement)
 * dichotomous partisanship variables
 recode CC16_360 2=1 *=0, gen(dem_dummy)
 recode CC16_360 3=1 *=0, gen(rep_dummy)
@@ -126,7 +127,7 @@ gen clint_likes = gun_stance + abort_stance + epa_stance
 * polarization
 gen polar_trump = abs(trump_likes-clint_likes)
 gen polar_clint = abs(clint_likes-trump_likes)
-* intensity = likes, bc i don't have proxy for dislikes, so intensity_candidate = cand_likes
+* intensity = likes b/c no dislikes count
 * ambivalence = .5(intensity)-polarization
 gen ambiv_trump = 0.5*(trump_likes)-polar_trump
 gen ambiv_clint = 0.5*(clint_likes)-polar_clint

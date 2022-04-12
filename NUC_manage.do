@@ -1,11 +1,11 @@
 *** Sarah McNitt
 *** NU and CU 2016 CCES Module data management
 *** requires: CCES16_NUC_OUTPUT_Feb2017.dta
-*** output: data appropriate for merge and analysis a la Huckfeldt 2004
-***last updated: 4/4/2022
+*** output: .dta
+***last updated: 4/11/2022
 
-use "/Users/sarahmcnitt/Desktop/replication 1/cub_16/CCES16_NUC_OUTPUT_Feb2017.dta"
 cd "/Users/sarahmcnitt/Desktop/thesis"
+use "CCES16_NUC_OUTPUT_Feb2017.dta"
 
 * dropping all but common content and name generator battery
 drop NUC3J* NUC37* NUC38* NUC39* NUC4J* NUC400* NUC47* 

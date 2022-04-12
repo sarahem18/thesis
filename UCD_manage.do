@@ -1,11 +1,11 @@
 *** Sarah McNitt
 *** UC Davis 2016 CCES Module data management
 *** requires: CCES16_UCD_OUTPUT_Feb2017.dta
-*** output: data appropriate for merge and analysis a la Huckfeldt 2004
-*** last updated: 4/4/2022
+*** output: .dta
+*** last updated: 4/11/2022
 
-use "/Users/sarahmcnitt/Desktop/replication 1/ucdavis_2016/CCES16_UCD_OUTPUT_Feb2017.dta"
 cd "/Users/sarahmcnitt/Desktop/thesis"
+use "CCES16_UCD_OUTPUT_Feb2017.dta"
 
 * dropping all but common content, name generator battery
 drop UCD3* UCD410* UCD411* UCD412 UCD413 UCD414 UCD415

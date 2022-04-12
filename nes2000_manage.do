@@ -1,10 +1,10 @@
 *** Sarah McNitt
-*** NES data management
-*** requires: NES 2000 Data File
-*** output: variables for replication of Sallach 1972
-*** last updated: 3/2/22
+*** 2000 ANES data management
+*** requires: anes2000TS.dta
+*** output: .dta
+*** last updated: 4/11/22
 
-cd "/Users/sarahmcnitt/Desktop/replication 2"
+cd "/Users/sarahmcnitt/Desktop/thesis"
 use "anes2000TS.dta"
 
 *** Correlates
@@ -210,4 +210,4 @@ gen age = 2000-birthyr
 * 0 = male, 1 = female
 rename V001029 sex
 
-save "sallach ANES 2000.dta", replace
+save "2000 anes final.dta", replace
