@@ -86,7 +86,9 @@ replace named_match = 3 if disc3_match==1
 ** common content variables
 * demos
 gen age=2016-birthyr
+
 * no management for educ
+
 * scale from 0-6 with 0 = Strong Democrat
 recode pid7 1=0 2=1 3=2 4=3 5=4 6=5 7=6 *=., gen(new_pid)
 

@@ -22,23 +22,26 @@ reg participation age sex member ses efficacy infoexc_ind
 eststo activity
 esttab using nes2000.tex, b(3) wide
 
+** marginal effects plots
+** voting
 reg voting age sex member ses efficacy infoexc_ind, beta
 margins, at(member=(0 1 2)) atmeans
-marginsplot, title("") xtitle("Number of memberships") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+marginsplot, title("") xtitle("Number of memberships") graphregion(fcolor(white) ilcolor(white) lcolor(white))  yla(, format(%9.1f)) 
 graph save "Graph" "memberv.gph"
 
 margins, at(ses=(0(.25)1)) atmeans
-marginsplot, title("") xtitle("Socioeconomic Index") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+marginsplot, title("") xtitle("Socioeconomic Index") graphregion(fcolor(white) ilcolor(white) lcolor(white))  yla(, format(%9.2f))
 graph save "Graph" "sesv.gph"
 
 margins, at(efficacy=(0 (.25)1)) atmeans
-marginsplot, title("") xtitle("Perceived Political Powerlessness") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+marginsplot, title("") xtitle("Perceived Political Powerlessness") graphregion(fcolor(white) ilcolor(white) lcolor(white))  yla(, format(%9.2f))
 graph save "Graph" "efficacyv.gph"
 
 margins, at(infoexc_ind=(0(.25)1)) atmeans
-marginsplot, title("") xtitle("Information Exchange Index") graphregion(fcolor(white) ilcolor(white) lcolor(white))
+marginsplot, title("") xtitle("Information Exchange Index") graphregion(fcolor(white) ilcolor(white) lcolor(white))  yla(, format(%9.2f))
 graph save "Graph" "infov.gph"
 
+** participation
 reg participation age sex member ses efficacy infoexc_ind, beta
 margins, at(member=(0 1 2)) atmeans
 marginsplot, title("") xtitle("Number of memberships") graphregion(fcolor(white) ilcolor(white) lcolor(white))
@@ -56,8 +59,8 @@ margins, at(infoexc_ind=(0(.25)1)) atmeans
 marginsplot, title("") xtitle("Information Exchange Index") graphregion(fcolor(white) ilcolor(white) lcolor(white))
 graph save "Graph" "infop.gph"
 
-grc1leg memberp.gph sesp.gph efficacyp.gph infop.gph, graphregion(fcolor(white) ilcolor(white) lcolor(white))  title("Predicted number of votes cast" "in the 2000 election") note("All other variables held at their means.")
-graph save "Graph" "/Users/sarahmcnitt/Desktop/working/vote margins.gph"
+grc1leg memberv.gph sesv.gph efficacyv.gph infov.gph, graphregion(fcolor(white) ilcolor(white) lcolor(white))  title("Predicted number of votes cast" "in the 2000 election") note("All other variables held at their means.")
+graph export "/Users/sarahmcnitt/Desktop/working/voting_margins.png", as(png) name("Graph")
 
-grc1leg memberv.gph sesv.gph efficacyv.gph infov.gph, graphregion(fcolor(white) ilcolor(white) lcolor(white))  title(Predicted political participation) note("All other variables held at their means.")
-graph save "Graph" "/Users/sarahmcnitt/Desktop/working/participation margins.gph"
+grc1leg memberp.gph sesp.gph efficacyp.gph infop.gph, graphregion(fcolor(white) ilcolor(white) lcolor(white))  title(Predicted political participation) note("All other variables held at their means.") 
+graph export "/Users/sarahmcnitt/Desktop/working/participation_margins.png", as(png) name("Graph")
